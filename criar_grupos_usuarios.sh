@@ -1,28 +1,31 @@
 
+
+# Script para criar diretórios, grupos e usuários com senhas criptografadas com o crypt 
 # Executar como root ou sudo
 
-# Administradores
-groupadd Administradores
-useradd -m -s /bin/bash -g Administradores admin
-passwd admin        # definir senha manualmente
-mkdir -p /home/admin/trabalho
-chown admin:Administradores /home/admin/trabalho
-chmod 777 /home/admin/trabalho
+echo "Criando diretórios..."
+mkdir -p /publico /adm /ven /sec
 
-# Administrativo
-groupadd Administrativo
-useradd -m -s /bin/bash -g Administrativo usuario1
-passwd usuario1
-mkdir -p /home/usuario1/trabalho
-chown usuario1:Administrativo /home/usuario1/trabalho
-chmod 750 /home/usuario1/trabalho
+echo "Criando grupos de usuários..."
+groupadd GRP_ADM
+groupadd GRP_VEN
+groupadd GRP_SEC
 
-# Convidados
-groupadd Convidados
-useradd -m -s /bin/bash -g Convidados convidado
-passwd convidado
-mkdir -p /home/convidado/trabalho
-chown convidado:Convidados /home/convidado/trabalho
-chmod 700 /home/convidado/trabalho
+echo "Criando usuários..."
 
-echo "Todos os grupos, usuários e diretórios foram criados com sucesso!"
+# Grupo Administradores
+useradd carlos -m -s /bin/bash -p $(openssl passwd -crypt Senha123) -G GRP_ADM
+useradd maria -m -s /bin/bash -p $(openssl passwd -crypt Senha123) -G GRP_ADM
+useradd joao -m -s /bin/bash -p $(openssl passwd -crypt Senha123) -G GRP_ADM
+
+# Grupo Vendas
+useradd debora -m -s /bin/bash -p $(openssl passwd -crypt Senha123) -G GRP_VEN
+useradd sebastiana -m -s /bin/bash -p $(openssl passwd -crypt Senha123) -G GRP_VEN
+useradd roberto -m -s /bin/bash -p $(openssl passwd -crypt Senha123) -G GRP_VEN
+
+# Grupo Secretaria
+useradd josefina -m -s /bin/bash -p $(openssl passwd -crypt Senha123) -G GRP_SEC
+useradd amanda -m -s /bin/bash -p $(openssl passwd -crypt Senha123) -G GRP_SEC
+useradd rogerio -m -s /bin/bash -p $(openssl passwd -crypt Senha123) -G GRP_SEC
+
+echo "Todos os diretórios, grupos e usuários foram criados com sucesso!"
